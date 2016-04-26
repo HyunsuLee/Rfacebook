@@ -45,17 +45,17 @@ my_likes <- getLikes(user="me", token = fb_oauth)
 head(my_likes)
 ```
 
-내가 like한것들 중에 User는 안뜬다.  
-page에 해당되는 것만 보이는데, 이것들의 id vector 를 입력하면  
-그 page가 like한것을 볼수 있다. 
-예를 들어 mdphd.kr은 557704380958536이므로
+내가 like한것들 중에 User는 안뜬다.    
+page에 해당되는 것만 보이는데, 이것들의 id vector 를 입력하면    
+그 page가 like한것을 볼수 있다.   
+예를 들어 mdphd.kr은 557704380958536이므로  
 
 ```{r, echo=FALSE}
 mdphd_likes <- getLikes(user="557704380958536", token =fb_oauth)
 head(mdphd_likes)
 ```
 
-page의 정보는 이렇게 따옴.
+page의 정보는 이렇게 따옴.  
 ```{r, echo=FALSE}
 mdphd_pages <-getPage("MDPHD.kr", token=fb_oauth, n = 80)
 head(mdphd_pages)
