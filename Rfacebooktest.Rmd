@@ -8,13 +8,13 @@ output: html_document
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
 ## Facebook 분석
-facebook에 접근하여면 인증 token을 받아야 한다. 
-http://thinktostart.com/analyzing-facebook-with-r/
-참고한 문서는 이것. 정리하면
-1. https://developers.facebook.com 에 접속
-2. website app을 생성.
-3. 대충 quick start
-4. R로 돌아와서 libary Install or 부르기
+facebook에 접근하여면 인증 token을 받아야 한다.   
+http://thinktostart.com/analyzing-facebook-with-r/  
+참고한 문서는 이것. 정리하면  
+1. https://developers.facebook.com 에 접속  
+2. website app을 생성.  
+3. 대충 quick start  
+4. R로 돌아와서 libary Install or 부르기  
 
 
 ```{r, echo=FALSE}
@@ -28,21 +28,39 @@ library(Rfacebook) #facebook package
 #fb_oauth <- fbOAuth(app_id="624410591044182", app_secret="9218b8e02b229f8d9eb5f9f7af48b9ca",extended_permissions = TRUE) 영구token받기
 ```
 
-요래 놓고, http://localhost:1410/을 facebook developer +add platform site에 붙여넣기
-그럼 authentication이 되면서 fb_oauth가 생성.
-이걸 File로 저장
+요래 놓고, http://localhost:1410/을 facebook developer +add platform site에 붙여넣기  
+그럼 authentication이 되면서 fb_oauth가 생성.  
+이걸 File로 저장  
 
 ```{r, echo=FALSE}
 #save(fb_oauth, file="fb_oauth") #저장
 load("fb_oauth") #부르기
 ```
 
-내 정보를 받아보자
+내 정보를 받아보자  
 ```{r, echo=FALSE}
 me <- getUsers("me", token = fb_oauth) #내 id vector와 기본정보
-my_likes <- getlikes(user="me", token = fb_oauth)
-
+print(me)
+my_likes <- getLikes(user="me", token = fb_oauth)
+head(my_likes)
 ```
+
+내가 like한것들 중에 User는 안뜬다.  
+page에 해당되는 것만 보이는데, 이것들의 id vector 를 입력하면  
+그 page가 like한것을 볼수 있다. 
+예를 들어 mdphd.kr은 557704380958536이므로
+
+```{r, echo=FALSE}
+mdphd_likes <- getLikes(user="557704380958536", token =fb_oauth)
+head(mdphd_likes)
+```
+
+page의 정보는 이렇게 따옴.
+```{r, echo=FALSE}
+mdphd_pages <-getPage("MDPHD.kr", token=fb_oauth, n = 80)
+head(mdphd_pages)
+```
+
 
 
 
